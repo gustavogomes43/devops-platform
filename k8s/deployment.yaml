@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-platform
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devops-platform
+  template:
+    metadata:
+      labels:
+        app: devops-platform
+    spec:
+      containers:
+      - name: devops-platform
+        image: gustavogomes43/devops-platform:latest # Verifique se esse é o nome da sua imagem no Docker Hub
+        ports:
+        - containerPort: 8000
