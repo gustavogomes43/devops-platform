@@ -68,4 +68,4 @@ terraform apply --auto-approve
 [ ] FinOps: Implementação de Karpenter para substituição do Cluster Autoscaler convencional, otimizando custos de computação.
 
 ---
-Desenvolvido por Gus — DevOps & Cloud Infrastructure
+Desenvolvido por Gustavo Gomes — DevOps & Cloud Infrastructure
