@@ -55,3 +55,15 @@ terraform init -upgrade
 
 # Aplicação da infraestrutura como código
 terraform apply --auto-approve
+```
+
+---
+
+📈 Roadmap de Evolução
+[ ] Segurança: Implementação de KMS Encryption para Secrets e criptografia de volumes EBS.
+
+[ ] Network: Migração para Application Load Balancer (ALB) via AWS Ingress Controller.
+
+[ ] FinOps: Implementação de Karpenter para substituição do Cluster Autoscaler convencional, otimizando custos de computação.
+
+Desenvolvido por Gus — DevOps & Cloud Infrastructure
