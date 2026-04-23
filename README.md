@@ -57,6 +57,15 @@ terraform init -upgrade
 terraform apply --auto-approve
 ```
 
+### Configuração de Contexto e Acesso
+```bash
+# Sincronização do Kubeconfig com a IAM Role correta
+aws eks update-kubeconfig --region us-east-1 --name devops-cluster-new
+
+# Validação do status dos nodes
+kubectl get nodes
+```
+
 ---
 
 📈 Roadmap de Evolução
