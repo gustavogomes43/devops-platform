@@ -1,4 +1,3 @@
-cat <<EOF > main.py
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -10,4 +9,3 @@ def read_root():
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
-EOF
