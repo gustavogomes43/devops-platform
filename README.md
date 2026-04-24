@@ -25,7 +25,7 @@
 
 ## 🎯 Overview
 
-Infraestrutura de nível produção na AWS com Kubernetes (EKS), provisionada via Terraform e operada com GitOps usando ArgoCD.
+Infraestrutura na AWS com Kubernetes (EKS), provisionada via Terraform e operada com GitOps usando ArgoCD.
 
 ---
 
