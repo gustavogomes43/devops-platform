@@ -1,48 +1,68 @@
 # 🚀 Production-Grade EKS Platform with Terraform & GitOps (ArgoCD)
 
-> Infraestrutura de nível produção na AWS com Kubernetes (EKS), provisionada via Terraform e operada com GitOps usando ArgoCD.
+<p align="center">
+
+![AWS](https://img.shields.io/badge/AWS-EKS%20%7C%20VPC%20%7C%20IAM-orange?logo=amazon-aws)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-1.30-blue?logo=kubernetes)
+![Terraform](https://img.shields.io/badge/Terraform-IaC-purple?logo=terraform)
+![ArgoCD](https://img.shields.io/badge/GitOps-ArgoCD-red?logo=argo)
+![Helm](https://img.shields.io/badge/Helm-Charts-0F1689?logo=helm)
+![Observability](https://img.shields.io/badge/Monitoring-Prometheus%20%7C%20Grafana-green?logo=prometheus)
+
+</p>
+
+<p align="center">
+
+![GitHub repo size](https://img.shields.io/github/repo-size/gustavogomes43/devops-platform)
+![GitHub stars](https://img.shields.io/github/stars/gustavogomes43/devops-platform?style=social)
+![GitHub forks](https://img.shields.io/github/forks/gustavogomes43/devops-platform?style=social)
+![GitHub last commit](https://img.shields.io/github/last-commit/gustavogomes43/devops-platform)
+![GitHub issues](https://img.shields.io/github/issues/gustavogomes43/devops-platform)
+
+</p>
 
 ---
 
-## 🎯 Objetivo
+## 🎯 Overview
 
-Construir uma plataforma escalável, segura e automatizada para deploy contínuo de aplicações em Kubernetes, eliminando configuration drift, reduzindo intervenção manual e garantindo alta disponibilidade.
+Infraestrutura de nível produção na AWS com Kubernetes (EKS), provisionada via Terraform e operada com GitOps usando ArgoCD.
 
 ---
 
 ## 🏗️ Arquitetura
 
-![Architecture Diagram](architecture.png)
+![Architecture](./docs/architecture.png)
+
+---
+
+## ⚡ Key Features
+
+- ✅ Infraestrutura como código (Terraform)
+- ✅ Kubernetes gerenciado (EKS 1.30)
+- ✅ GitOps com ArgoCD
+- ✅ Observabilidade completa (Prometheus + Grafana)
+- ✅ Segurança com subnets privadas
+- ✅ Alta disponibilidade multi-AZ
 
 ---
 
 ## 🧰 Stack Tecnológica
 
 - AWS (EKS, EC2, VPC, IAM, ELB, NAT Gateway)
-- Terraform (Infraestrutura como Código)
-- Kubernetes (EKS v1.30)
+- Terraform (IaC)
+- Kubernetes (EKS)
 - ArgoCD (GitOps)
-- Helm (Gerenciamento de pacotes)
-- Prometheus + Grafana (Observabilidade)
-- Node Exporter (Métricas de infraestrutura)
+- Helm
+- Prometheus + Grafana
 
 ---
 
-## 🌐 Design de Rede (VPC)
+## 🌐 Design de Rede
 
-- 1 VPC customizada (`10.0.0.0/16`)
-- 2 Availability Zones (`us-east-1a`, `us-east-1b`)
-- Subnets:
-  - Públicas (NAT Gateway + Internet Gateway)
-  - Privadas (EKS Nodes)
-
-### 🔐 Estratégia de Segurança
-
-- Workloads em subnets privadas
-- Sem exposição direta à internet
-- Egress controlado via NAT Gateway
-- Security Groups restritivos
-- IAM com princípio de menor privilégio
+- VPC customizada (`10.0.0.0/16`)
+- Subnets públicas e privadas
+- NAT Gateway para saída controlada
+- Workloads isoladas em subnets privadas
 
 ---
 
@@ -52,104 +72,78 @@ Construir uma plataforma escalável, segura e automatizada para deploy contínuo
 - Managed Node Groups
 - Instâncias: `t3.small`
 - OS: Amazon Linux 2023
-- Alta disponibilidade multi-AZ
+- Multi-AZ
 
 ---
 
 ## 🔐 Autenticação Moderna (EKS Access Entry)
 
 ### Problema
-EKS 1.30 depreca o `aws-auth ConfigMap`.
+Depreciação do `aws-auth ConfigMap`
 
 ### Solução
-- Upgrade para módulo Terraform v20+
-- Uso de **Access Entries (`API_AND_CONFIG_MAP`)**
+- Upgrade para Terraform v20+
+- Uso de Access Entries (`API_AND_CONFIG_MAP`)
 
 ### Resultado
-- Controle de acesso via API AWS
-- Eliminação de dependência de YAML interno
+- Controle via API AWS
+- Sem dependência de YAML
 
 ---
 
 ## 🐙 GitOps com ArgoCD
 
-- Deploy automático baseado em Git
+- Deploy automático via Git
 - Sync contínuo
 - Self-healing
 - Rollback automático
 
 ### Fluxo
 
-1. Dev faz commit no Git
-2. ArgoCD detecta mudança
-3. Sincroniza com cluster
-4. Kubernetes aplica estado desejado
+```mermaid
+graph TD;
+A[Git Commit] --> B[ArgoCD Detect]
+B --> C[Sync Cluster]
+C --> D[Deploy Kubernetes
 
 ---
 
-## 📊 Observabilidade
-
-Implementação completa via Helm:
-
-- Prometheus Operator
-- Grafana Dashboards
-- Node Exporter
-
-### Benefícios
-
-- Monitoramento de cluster e nodes
-- Métricas em tempo real
-- Base para alertas e SRE
+### 📊 Observabilidade
+Prometheus
+Grafana
+Node Exporter
 
 ---
 
-## 🧠 Troubleshooting Real (Diferencial)
-
-### 🔥 1. EKS Authentication Failure
-
-**Problema:**
-Erro `Unauthorized` após upgrade
-
-**Causa:**
-Depreciação do `aws-auth`
-
-**Solução:**
-Migração para Access Entries
+### 🧠 Troubleshooting Real
+🔥 EKS Authentication Failure
+Causa: aws-auth deprecated
+Solução: Access Entries
+🔥 Terraform State Drift
+Solução: terraform state rm + import
+🔥 NAT Gateway Lock
+Causa: EIP preso
+Solução: remoção correta do NAT
 
 ---
 
-### 🔥 2. Terraform State Drift
+### 🚀 Provisionamento
 
-**Problema:**
-Infra não convergia (CIDR / recursos órfãos)
+</> Bash
 
-**Solução:**
-
-- `terraform state rm`
-- `terraform import`
-
-**Resultado:**
-Infra recuperada sem downtime
-
----
-
-### 🔥 3. NAT Gateway Lock (VPC Delete Failure)
-
-**Problema:**
-Erro `DependencyViolation` ao deletar VPC
-
-**Causa:**
-Elastic IP preso ao NAT Gateway
-
-**Solução:**
-
-- Identificação via ENI
-- Remoção correta do NAT Gateway
-
----
-
-## 🚀 Provisionamento
-
-```bash
 terraform init -upgrade
 terraform apply --auto-approve
+
+---
+
+### 📈 Roadmap
+ KMS Encryption
+ AWS Load Balancer Controller (ALB)
+ Karpenter (FinOps)
+
+---
+
+### 👨‍💻 Autor
+
+Gustavo Gomes
+DevOps & Cloud Infrastructure
