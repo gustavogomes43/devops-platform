@@ -31,7 +31,7 @@ Infraestrutura de nível produção na AWS com Kubernetes (EKS), provisionada vi
 
 ## 🏗️ Arquitetura
 
-![Architecture](./docs/architecture.png)
+![Architecture](architecture.png)
 
 ---
 
