@@ -104,7 +104,7 @@ Depreciação do `aws-auth ConfigMap`
 graph TD;
 A[Git Commit] --> B[ArgoCD Detect]
 B --> C[Sync Cluster]
-C --> D[Deploy Kubernetes
+C --> D[Deploy Kubernetes]
 ```
 
 ---
