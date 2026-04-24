@@ -110,19 +110,22 @@ C --> D[Deploy Kubernetes]
 ---
 
 ### 📊 Observabilidade
-Prometheus
-Grafana
-Node Exporter
+- Prometheus
+- Grafana
+- Node Exporter
 
 ---
 
 ### 🧠 Troubleshooting Real
-🔥 EKS Authentication Failure
+
+- 🔥 EKS Authentication Failure
 Causa: aws-auth deprecated
 Solução: Access Entries
-🔥 Terraform State Drift
+
+- 🔥 Terraform State Drift
 Solução: terraform state rm + import
-🔥 NAT Gateway Lock
+
+- 🔥 NAT Gateway Lock
 Causa: EIP preso
 Solução: remoção correta do NAT
 
