@@ -12,7 +12,7 @@ Construir uma plataforma escalável, segura e automatizada para deploy contínuo
 
 ## 🏗️ Arquitetura
 
-![Architecture Diagram](./docs/architecture.png)
+![Architecture Diagram](architecture.png)
 
 ---
 
