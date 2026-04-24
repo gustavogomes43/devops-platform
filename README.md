@@ -105,7 +105,7 @@ graph TD;
 A[Git Commit] --> B[ArgoCD Detect]
 B --> C[Sync Cluster]
 C --> D[Deploy Kubernetes
-
+```
 ---
 
 ### 📊 Observabilidade
@@ -129,10 +129,11 @@ Solução: remoção correta do NAT
 
 ### 🚀 Provisionamento
 
-</> Bash
+```bash
 
 terraform init -upgrade
 terraform apply --auto-approve
+```
 
 ---
 
