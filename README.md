@@ -106,6 +106,7 @@ A[Git Commit] --> B[ArgoCD Detect]
 B --> C[Sync Cluster]
 C --> D[Deploy Kubernetes
 ```
+
 ---
 
 ### 📊 Observabilidade
@@ -138,9 +139,9 @@ terraform apply --auto-approve
 ---
 
 ### 📈 Roadmap
- KMS Encryption
- AWS Load Balancer Controller (ALB)
- Karpenter (FinOps)
+- KMS Encryption
+- AWS Load Balancer Controller (ALB)
+- Karpenter (FinOps)
 
 ---
 
