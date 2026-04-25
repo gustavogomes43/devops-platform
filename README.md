@@ -2,7 +2,7 @@
 <img src="assets/architecture.png" width="900"/>
 </p>
 
-<h1 align="center">Plataforma Kubernetes de Nível Produção na AWS</h1>
+<h1 align="center">Plataforma Kubernetes na AWS</h1>
 
 <p align="center">
 Plataforma cloud totalmente automatizada projetada para simular cenários reais de DevOps e SRE utilizando Terraform, Amazon EKS e GitOps.
