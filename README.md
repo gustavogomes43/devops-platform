@@ -1,154 +1,180 @@
-# 🚀 Production-Grade EKS Platform with Terraform & GitOps (ArgoCD)
+<p align="center">
+<img src="assets/architecture.png" width="900"/>
+</p>
+
+<h1 align="center">Plataforma Kubernetes de Nível Produção na AWS</h1>
+
+<p align="center">
+Plataforma cloud totalmente automatizada projetada para simular cenários reais de DevOps e SRE utilizando Terraform, Amazon EKS e GitOps.
+</p>
 
 <p align="center">
 
 ![AWS](https://img.shields.io/badge/AWS-EKS%20%7C%20VPC%20%7C%20IAM-orange?logo=amazon-aws)
 ![Kubernetes](https://img.shields.io/badge/Kubernetes-1.30-blue?logo=kubernetes)
-![Terraform](https://img.shields.io/badge/Terraform-IaC-purple?logo=terraform)
+![Terraform](https://img.shields.io/badge/Terraform-Infrastructure%20as%20Code-purple?logo=terraform)
 ![ArgoCD](https://img.shields.io/badge/GitOps-ArgoCD-red?logo=argo)
-![Helm](https://img.shields.io/badge/Helm-Charts-0F1689?logo=helm)
 ![Observability](https://img.shields.io/badge/Monitoring-Prometheus%20%7C%20Grafana-green?logo=prometheus)
-
-</p>
-
-<p align="center">
-
-![GitHub repo size](https://img.shields.io/github/repo-size/gustavogomes43/devops-platform)
-![GitHub stars](https://img.shields.io/github/stars/gustavogomes43/devops-platform?style=social)
-![GitHub forks](https://img.shields.io/github/forks/gustavogomes43/devops-platform?style=social)
-![GitHub last commit](https://img.shields.io/github/last-commit/gustavogomes43/devops-platform)
-![GitHub issues](https://img.shields.io/github/issues/gustavogomes43/devops-platform)
 
 </p>
 
 ---
 
-## 🎯 Overview
+## 📌 Problema
 
-Infraestrutura na AWS com Kubernetes (EKS), provisionada via Terraform e operada com GitOps usando ArgoCD.
+Ambientes cloud modernos raramente falham por falta de ferramentas —  
+os principais problemas estão em:
+
+- Deploys manuais e inconsistentes  
+- Configuration drift  
+- Falta de isolamento de rede  
+- Baixa observabilidade  
+- Infraestrutura difícil de manter  
+
+Este projeto foi construído para resolver esses pontos através de uma abordagem **automatizada, previsível e resiliente**.
+
+---
+
+## 🧠 Solução
+
+Uma plataforma cloud-native baseada em:
+
+- **Infrastructure as Code (Terraform)** → ambientes reproduzíveis  
+- **Kubernetes (Amazon EKS)** → orquestração escalável  
+- **GitOps (ArgoCD)** → deploy declarativo e automatizado  
+- **Observabilidade (Prometheus + Grafana)** → visibilidade operacional  
+
+O sistema foi projetado para operar com **mínima intervenção manual** e **comportamento previsível mesmo sob falhas**.
 
 ---
 
 ## 🏗️ Arquitetura
 
-![Architecture](architecture.png)
+![Architecture](assets/architecture.png)
+
+### Principais decisões de arquitetura
+
+- Workloads executando em **subnets privadas** (sem exposição direta à internet)  
+- Saída controlada via **NAT Gateway**  
+- Deploy distribuído em múltiplas AZs (alta disponibilidade)  
+- Git como **fonte única da verdade**  
+- Uso de serviços gerenciados para reduzir overhead operacional  
 
 ---
 
-## ⚡ Key Features
+## ⚙️ Componentes da Plataforma
 
-- ✅ Infraestrutura como código (Terraform)
-- ✅ Kubernetes gerenciado (EKS 1.30)
-- ✅ GitOps com ArgoCD
-- ✅ Observabilidade completa (Prometheus + Grafana)
-- ✅ Segurança com subnets privadas
-- ✅ Alta disponibilidade multi-AZ
+### Camada de Infraestrutura
+- AWS VPC (CIDR customizado)  
+- Subnets públicas e privadas  
+- NAT Gateway e tabelas de rota  
+- IAM com princípio de menor privilégio  
 
----
+### Camada de Compute
+- Amazon EKS (v1.30)  
+- Managed Node Groups (Amazon Linux 2023)  
 
-## 🧰 Stack Tecnológica
+### Camada de Deploy
+- ArgoCD (controle GitOps)  
+- Helm (gerenciamento de aplicações)  
 
-- AWS (EKS, EC2, VPC, IAM, ELB, NAT Gateway)
-- Terraform (IaC)
-- Kubernetes (EKS)
-- ArgoCD (GitOps)
-- Helm
-- Prometheus + Grafana
-
----
-
-## 🌐 Design de Rede
-
-- VPC customizada (`10.0.0.0/16`)
-- Subnets públicas e privadas
-- NAT Gateway para saída controlada
-- Workloads isoladas em subnets privadas
+### Camada de Observabilidade
+- Prometheus (coleta de métricas)  
+- Grafana (visualização)  
+- Node Exporter (métricas de infraestrutura)  
 
 ---
 
-## ⚙️ Kubernetes (Amazon EKS)
-
-- Versão: **1.30**
-- Managed Node Groups
-- Instâncias: `t3.small`
-- OS: Amazon Linux 2023
-- Multi-AZ
+## 🔄 Modelo de Deploy (GitOps)
+- Git Commit → ArgoCD detecta → Sync do cluster → Deploy automático
 
 ---
 
-## 🔐 Autenticação Moderna (EKS Access Entry)
+### Garantias do modelo
 
-### Problema
-Depreciação do `aws-auth ConfigMap`
-
-### Solução
-- Upgrade para Terraform v20+
-- Uso de Access Entries (`API_AND_CONFIG_MAP`)
-
-### Resultado
-- Controle via API AWS
-- Sem dependência de YAML
+- Eliminação de deploy manual (`kubectl apply`)  
+- Correção automática de desvios (self-healing)  
+- Detecção de drift  
+- Versionamento completo de infra + aplicações  
 
 ---
 
-## 🐙 GitOps com ArgoCD
+## 🧪 Cenários Reais de Falha e Decisões de Engenharia
 
-- Deploy automático via Git
-- Sync contínuo
-- Self-healing
-- Rollback automático
+Este projeto inclui problemas reais encontrados em ambientes cloud:
 
-### Fluxo
-
-```mermaid
-graph TD;
-A[Git Commit] --> B[ArgoCD Detect]
-B --> C[Sync Cluster]
-C --> D[Deploy Kubernetes]
-```
+### 1. Mudança de autenticação no EKS
+- Problema: depreciação do `aws-auth ConfigMap`  
+- Solução: migração para **Access Entries (API_AND_CONFIG_MAP)**  
+- Resultado: controle de acesso nativo via IAM  
 
 ---
 
-### 📊 Observabilidade
-- Prometheus
-- Grafana
-- Node Exporter
+### 2. Terraform State Drift
+- Problema: divergência entre estado e infraestrutura real  
+- Solução:
+  - `terraform state rm`  
+  - `terraform import`  
+- Resultado: reconciliação sem downtime  
 
 ---
 
-### 🧠 Troubleshooting Real
-
-- 🔥 EKS Authentication Failure
-Causa: aws-auth deprecated
-Solução: Access Entries
-
-- 🔥 Terraform State Drift
-Solução: terraform state rm + import
-
-- 🔥 NAT Gateway Lock
-Causa: EIP preso
-Solução: remoção correta do NAT
+### 3. Falha ao deletar VPC
+- Problema: `DependencyViolation`  
+- Causa raiz: dependência entre NAT Gateway e Elastic IP  
+- Resultado: entendimento do ciclo de vida dos recursos AWS  
 
 ---
 
-### 🚀 Provisionamento
+### 4. Erro na criação de Node Group
+- Problema: subnets sem auto-assign public IP  
+- Resultado: correção do design entre subnets públicas e privadas  
+
+---
+
+## 📊 Características Operacionais
+
+- Alta disponibilidade (multi-AZ)  
+- Segurança por isolamento de rede  
+- Deploy determinístico  
+- Observabilidade completa  
+- Redução de intervenção manual  
+
+---
+
+## 🚀 Como executar
 
 ```bash
-
 terraform init -upgrade
 terraform apply --auto-approve
+
+aws eks update-kubeconfig --region us-east-1 --name devops-cluster
+kubectl get nodes
 ```
 
+## 📈 Evoluções futuras
+
+- Karpenter (autoscaling inteligente)
+- Estratégias de FinOps (otimização de custos)
+- Criptografia com KMS
+- Pipeline CI/CD com GitHub Actions
+- Policy as Code (OPA / Kyverno)
+
 ---
 
-### 📈 Roadmap
-- KMS Encryption
-- AWS Load Balancer Controller (ALB)
-- Karpenter (FinOps)
-
----
-
-### 👨‍💻 Autor
+## 👨‍💻 Autor
 
 Gustavo Gomes
-DevOps & Cloud Infrastructure
+Cloud & DevOps Engineer
+
+---
+
+## ⚠️ Aviso
+
+Este projeto foi desenvolvido para fins educacionais e demonstração arquitetural.
+
+Para uso em produção, recomenda-se:
+
+- Hardening de segurança
+- Controle de custos
+- Validação de compliance
