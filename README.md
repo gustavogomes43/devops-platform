@@ -50,7 +50,7 @@ O sistema foi projetado para operar com **mínima intervenção manual** e **com
 
 ## 🏗️ Arquitetura
 
-![Architecture](assets/architecture.png)
+![Architecture](architecture.png)
 
 ### Principais decisões de arquitetura
 
