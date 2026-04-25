@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/gustavogomes43/devops-platform/main/assets/architecture.png" width="900"/>
+<img src="https://raw.githubusercontent.com/gustavogomes43/devops-platform/main/architecture.png" width="900"/>
 
 <h1 align="center">Plataforma Kubernetes na AWS</h1>
 
